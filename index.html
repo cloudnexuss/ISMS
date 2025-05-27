@@ -34,7 +34,7 @@
 
 
     async function loadNotices() {
-        const response = await fetch('https://ismsb.onrender.com/notices/getAll'); //  Adjust endpoint if needed
+        const response = await fetch('https://isms-b-production.up.railway.app/notices/getAll'); //  Adjust endpoint if needed
         const notices = await response.json();
 
         const board = document.getElementById('notice-board');
