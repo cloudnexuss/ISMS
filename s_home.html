@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Construct image URL exactly as requested
         const fileName = `${studentId.toLowerCase()}.jpg`;
-        const apiUrl = `https://ismsb.onrender.com/api/github/link/${programme}/${branch}/${year}/${studentId}.jpg`;
+        const apiUrl = `https://isms-b-production.up.railway.app/api/github/link/${programme}/${branch}/${year}/${studentId}.jpg`;
 
 fetch(apiUrl)
   .then(response => response.text())  // plain text response, not JSON
@@ -208,7 +208,7 @@ fetch(apiUrl)
 
 
   document.addEventListener("DOMContentLoaded", function () {
-    const baseUrl = "https://ismsb.onrender.com";
+    const baseUrl = "https://isms-b-production.up.railway.app";
     const uid = localStorage.getItem("uid");
 
     // Optional redirect if uid not found
