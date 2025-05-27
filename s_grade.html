@@ -160,7 +160,7 @@ async function initializeStudentInfo() {
             throw new Error("Invalid student ID format: " + studentId);
         }
 
-        const apiUrl = `https://ismsb.onrender.com/api/students/searchById/${branch}/${programme}/${batchYear}/${studentId}`;
+        const apiUrl = `https://isms-b-production.up.railway.app/api/students/searchById/${branch}/${programme}/${batchYear}/${studentId}`;
         const response = await fetch(apiUrl);
         if (!response.ok) throw new Error("Failed to fetch student data");
 
@@ -204,7 +204,7 @@ semesterSelect.addEventListener("change", (e) => {
 
 async function updateAllSemesterGrades(meta) {
     const { studentId, programme, branch, batchYear } = meta;
-    const url = `https://ismsb.onrender.com/api/students/results/${branch}/${programme}/${batchYear}/${studentId}/all-semesters`;
+    const url = `https://isms-b-production.up.railway.app/api/students/results/${branch}/${programme}/${batchYear}/${studentId}/all-semesters`;
 
     try {
         const response = await fetch(url);
@@ -266,7 +266,7 @@ async function updateAllSemesterGrades(meta) {
 async function updateGradeTable(semester, meta) {
     const { studentId, programme, branch, batchYear } = meta;
     const semName = `sem${semester}`;
-    const url = `https://ismsb.onrender.com/api/students/results/${branch}/${programme}/${batchYear}/${studentId}/semester/${semName}`;
+    const url = `https://isms-b-production.up.railway.app/api/students/results/${branch}/${programme}/${batchYear}/${studentId}/semester/${semName}`;
 
     try {
         const response = await fetch(url);
