@@ -34,7 +34,7 @@
 
 
     async function loadNotices() {
-        const response = await fetch('http://13.201.146.238:8080/notices/getAll'); //  Adjust endpoint if needed
+        const response = await fetch('https://13.201.146.238/notices/getAll'); //  Adjust endpoint if needed
         const notices = await response.json();
 
         const board = document.getElementById('notice-board');
