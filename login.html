@@ -85,7 +85,7 @@ document.querySelector("form").addEventListener("submit", async function(event) 
     const email = document.querySelector("input[type='text']").value.trim();
     const password = document.getElementById("password").value;
 
-    const url = `http://13.201.146.238:8080/api/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    const url = `https://13.201.146.238/api/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
 
     try {
         const response = await fetch(url, {
