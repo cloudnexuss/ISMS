@@ -119,7 +119,7 @@ if (!email) {
     console.error("Email not found in localStorage");
 } else {
     const studentId = email.split("@")[0]; // Extract "b123001"
-    const apiUrl = `https://https://isms-b-production.up.railway.app/books/student/${studentId}`;
+    const apiUrl = `http://13.201.146.238:8080/books/student/${studentId}`;
 
     fetch(apiUrl)
         .then(response => {
@@ -187,7 +187,7 @@ async function searchAvailableBooks() {
     if (!searchTerm) return;
 
     try {
-        const response = await fetch(`https://isms-b-production.up.railway.app/books/name/${encodeURIComponent(searchTerm)}`);
+        const response = await fetch(`http://13.201.146.238:8080/books/name/${encodeURIComponent(searchTerm)}`);
         if (!response.ok) throw new Error("Book not found");
 
         const data = await response.json();
