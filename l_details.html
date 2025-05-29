@@ -100,19 +100,20 @@ function createBookCard(book, type) {
         // Response structure for search by name:
         // { "availableCopies": 2, "bookName": "Algorithm For Bio Informatics" }
         return `
-            <div class="book-card">
-                <div class="book-info">
-                    <h3>${book.bookName || "Unknown Title"}</h3>
-                    <div class="book-details">
-                        <p><i class="fas fa-book"></i> Available: ${book.availableCopies ?? 0} copies</p>
-                    </div>
-                    <div class="availability-status ${book.availableCopies > 0 ? 'available' : 'unavailable'}">
-                        <i class="fas fa-${book.availableCopies > 0 ? 'check' : 'times'}-circle"></i>
-                        ${book.availableCopies > 0 ? 'Available' : 'Not Available'}
-                    </div>
-                </div>
+    <div class="book-card">
+        <div class="book-info">
+            <h3>${book.title || "Unknown Title"}</h3>
+            <div class="book-details">
+                <p><i class="fas fa-book"></i> Available: ${book.availableCopies ?? 0} copies</p>
             </div>
-        `;
+            <div class="availability-status ${book.availableCopies > 0 ? 'available' : 'unavailable'}">
+                <i class="fas fa-${book.availableCopies > 0 ? 'check' : 'times'}-circle"></i>
+                ${book.availableCopies > 0 ? 'Available' : 'Not Available'}
+            </div>
+        </div>
+    </div>
+`;
+
     }
 }
 
@@ -127,9 +128,9 @@ async function performSearch() {
 
     let url = '';
     if (searchType === 'name') {
-        url = `https://13.201.146.238/books/name/${encodeURIComponent(searchTerm)}`;
+        url = `http://localhost:8080/books/name/${encodeURIComponent(searchTerm)}`;
     } else {
-        url = `https://13.201.146.238/books/id/${encodeURIComponent(searchTerm)}`;
+        url = `http://localhost:8080/books/id/${encodeURIComponent(searchTerm)}`;
     }
 
     console.log("🔍 Requesting URL:", url);
@@ -147,7 +148,7 @@ async function performSearch() {
         let cardsHTML = '';
 
         if (searchType === 'id') {
-            // Ensure data has id and name before rendering
+            // ✅ Keep ID logic untouched
             if (data && data.id && data.name) {
                 cardsHTML = createBookCard(data, 'id');
             } else {
@@ -157,9 +158,22 @@ async function performSearch() {
                 </div>`;
             }
         } else {
-            // For search by name: expect availableCopies and bookName
-            if (data && data.bookName) {
-                cardsHTML = createBookCard(data, 'name');
+            // 🔁 Updated name logic: handle array of matchedTitles (with copies)
+            if (data && Array.isArray(data.matchedTitles) && data.matchedTitles.length > 0) {
+                cardsHTML = data.matchedTitles.map(book => `
+                    <div class="book-card">
+                        <div class="book-info">
+                            <h3>${book.title || "Unknown Title"}</h3>
+                            <div class="book-details">
+                                <p><i class="fas fa-book"></i> Available: ${book.availableCopies ?? 0} copies</p>
+                            </div>
+                            <div class="availability-status ${book.availableCopies > 0 ? 'available' : 'unavailable'}">
+                                <i class="fas fa-${book.availableCopies > 0 ? 'check' : 'times'}-circle"></i>
+                                ${book.availableCopies > 0 ? 'Available' : 'Not Available'}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
             } else {
                 cardsHTML = `<div class="no-results">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -170,6 +184,7 @@ async function performSearch() {
 
         resultsContainer.innerHTML = cardsHTML;
 
+        // Optional: Hide sidebar in mobile view
         if (window.innerWidth <= 768) {
             sidebar.classList.remove("show");
         }
@@ -217,6 +232,7 @@ searchInput.addEventListener("keypress", e => {
 });
 
 </script>
+
 
 </body>
 </html>
