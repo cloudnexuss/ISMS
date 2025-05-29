@@ -128,9 +128,9 @@ async function performSearch() {
 
     let url = '';
     if (searchType === 'name') {
-        url = `http://localhost:8080/books/name/${encodeURIComponent(searchTerm)}`;
+        url = `https://13.201.146.238/books/name/${encodeURIComponent(searchTerm)}`;
     } else {
-        url = `http://localhost:8080/books/id/${encodeURIComponent(searchTerm)}`;
+        url = `https://13.201.146.238/books/id/${encodeURIComponent(searchTerm)}`;
     }
 
     console.log("🔍 Requesting URL:", url);
